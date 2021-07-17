@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ApiYoutubeTrendingApplication<api_youtube_trending>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.domain.ApiYoutubeTrendingApplication",
+            "projectName": "api_youtube_trending",
+            "args": ""
+        }
+    ]
+}
