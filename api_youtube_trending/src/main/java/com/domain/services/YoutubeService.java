@@ -10,7 +10,9 @@ import com.domain.models.repos.YoutubeRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import net.bytebuddy.TypeCache.Sort;
+// import antlr.collections.List;
+
+// import net.bytebuddy.TypeCache.Sort;
 
 @Service
 @Transactional
@@ -39,5 +41,7 @@ public class YoutubeService {
         youtubeRepo.deleteById(id);
     }
 
-
+    public java.util.List<Youtube> findByTitle(String title){
+        return youtubeRepo.findByTitleContains(title);
+    }
 }

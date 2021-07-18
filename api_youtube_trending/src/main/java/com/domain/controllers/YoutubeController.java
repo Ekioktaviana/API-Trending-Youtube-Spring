@@ -3,11 +3,11 @@ package com.domain.controllers;
 import javax.validation.Valid;
 
 import com.domain.dto.ResponseData;
+import com.domain.dto.SearchData;
 import com.domain.models.entities.Youtube;
 import com.domain.services.YoutubeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import antlr.collections.List;
 
 @RestController
 @RequestMapping("/api/youtube")
@@ -77,5 +79,10 @@ public class YoutubeController {
     @DeleteMapping("/{id}")
     public void removeOne(@PathVariable("id") long id){
         youtubeService.deleteById(id);
+    }
+
+    @PostMapping("search/bytitle")
+    public java.util.List<Youtube> findByTitle(@RequestBody SearchData searchData){
+        return youtubeService.findByTitle(searchData.getSearchKey());
     }
 }
