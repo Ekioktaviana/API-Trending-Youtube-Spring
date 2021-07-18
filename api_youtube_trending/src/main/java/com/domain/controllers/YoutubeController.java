@@ -8,6 +8,9 @@ import com.domain.models.entities.Youtube;
 import com.domain.services.YoutubeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -20,8 +23,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import antlr.collections.List;
 
 @RestController
 @RequestMapping("/api/youtube")
@@ -84,5 +85,14 @@ public class YoutubeController {
     @PostMapping("search/bytitle")
     public java.util.List<Youtube> findByTitle(@RequestBody SearchData searchData){
         return youtubeService.findByTitle(searchData.getSearchKey());
+    }
+
+    @PostMapping("findall/{size}/{page}/{sort}")
+    public Iterable<Youtube> findByPublishedAtContains(@RequestBody SearchData searchData, @PathVariable("size") int size, @PathVariable("page") int page, @PathVariable("sort") String sort){
+        Pageable pageable = PageRequest.of(page, size, Sort.by("publishedAt").descending());
+            if (sort.equalsIgnoreCase("desc")) {
+                pageable = PageRequest.of(page, size, Sort.by("publishedAt").descending());
+            }
+        return youtubeService.findByPublishedAtContains(searchData.getSearchKey(), pageable);
     }
 }
